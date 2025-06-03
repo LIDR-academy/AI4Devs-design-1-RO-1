@@ -1,5 +1,4 @@
 ## ChatGPT
-
 Eres un desarrollador al que se le ha encargado la siguiente tarea:  Tu misión es diseñar la primera versión del sistema, entregando los siguientes artefactos:
 
 Descripción breve del software LTI, valor añadido y ventajas competitivas. Explicación de las funciones principales. Añadir un diagrama Lean Canvas para entender el modelo de negocio
