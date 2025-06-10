@@ -337,34 +337,26 @@ El siguiente diagrama representa un diseño de arquitectura moderna para el ATS 
 ### 🔗 Diagrama actualizado:
 
 ```mermaid
-graph TD;
-    subgraph Frontend
-        A[Web App (Admin/Candidato)]
-    end
-    subgraph Infraestructura
-        B[CloudFront (Assets)]
-        C[ELB]
-        D[API Gateway]
-    end
-    subgraph Microservicios
-        E[Auth Service]
-        F[Job Postings Service]
-        G[Candidate Profiles Service]
-        H[Application Tracking Service]
-        I[Interview Scheduling Service]
-        J[IA/Automation Service]
-        K[Collaboration/Notification Service]
-        L[Workflow Orchestrator]
-        M[Integrations Service]
-        N[Audit/Logs Service]
-    end
-    subgraph Externos
-        O[Correo/Notificaciones]
-        P[Portales de Empleo]
-        Q[Calendarios]
-        R[APIs de IA Externas]
-        S[Herramientas de Colaboración]
-    end
+graph TD
+    A[Web App Admin-Candidato]
+    B[CloudFront 'Assets']
+    C[ELB]
+    D[API Gateway]
+    E[Auth Service]
+    F[Job Postings Service]
+    G[Candidate Profiles Service]
+    H[Application Tracking Service]
+    I[Interview Scheduling Service]
+    J[IA/Automation Service]
+    K[Collaboration/Notification Service]
+    L[Workflow Orchestrator]
+    M[Integrations Service]
+    N[Audit/Logs Service]
+    O[Correo/Notificaciones]
+    P[Portales de Empleo]
+    Q[Calendarios]
+    R[APIs de IA Externas]
+    S[Herramientas de Colaboración]
 
     A --> B
     A --> C
