@@ -1,4 +1,3 @@
-
 # LT-JFG - Documentación del Sistema Applicant Tracking System (ATS)
 
 Este documento consolida toda la información, análisis, modelos y diagramas relacionados con la construcción de un sistema **Applicant Tracking System (ATS)**. Incluye definición general, casos de uso, diagrama entidad-relación, y arquitectura C4 completa (niveles 1 al 4).
@@ -135,8 +134,8 @@ Permite al reclutador crear y publicar una nueva oferta laboral en el sistema y 
 3. Selecciona los canales donde se publicará (portal interno, LinkedIn, etc.).
 4. Confirma y publica la vacante.
 
-```mermaid:
-flowchart TD
+```mermaid
+graph TD;
     A[Reclutador] --> B[Crear Vacante]
     A --> C[Definir Requisitos del Cargo]
     A --> D[Seleccionar Canales de Publicación]
@@ -158,13 +157,12 @@ Permite al reclutador visualizar, filtrar, clasificar y gestionar las postulacio
 5. Comparte información con el equipo de entrevistas si es necesario.
 
 ```mermaid
-usecaseDiagram
-actor Reclutador
-Reclutador --> (Ver Postulaciones)
-Reclutador --> (Filtrar Candidatos)
-Reclutador --> (Revisar Currículum)
-Reclutador --> (Clasificar Candidato)
-Reclutador --> (Agregar Comentarios o Tareas)
+graph TD;
+    A[Reclutador] --> B[Ver Postulaciones]
+    A --> C[Filtrar Candidatos]
+    A --> D[Revisar Currículum]
+    A --> E[Clasificar Candidato]
+    A --> F[Agregar Comentarios o Tareas]
 ```
 
 ---
@@ -182,16 +180,13 @@ Facilita la coordinación y registro de entrevistas entre candidatos y entrevist
 5. El entrevistador registra su evaluación tras la entrevista.
 
 ```mermaid
-usecaseDiagram
-actor Reclutador
-actor Candidato
-actor Entrevistador
-Reclutador --> (Seleccionar Candidato)
-Reclutador --> (Agendar Entrevista)
-Reclutador --> (Notificar a Participantes)
-Candidato --> (Confirmar Entrevista)
-Entrevistador --> (Confirmar Entrevista)
-Entrevistador --> (Registrar Evaluación)
+graph TD;
+    A[Reclutador] --> B[Seleccionar Candidato]
+    A --> C[Agendar Entrevista]
+    A --> D[Notificar a Participantes]
+    E[Candidato] --> F[Confirmar Entrevista]
+    G[Entrevistador] --> H[Confirmar Entrevista]
+    G --> I[Registrar Evaluación]
 ```
 
 ## ✅ 6. Diagrama Entidad Relación (ER)
@@ -281,11 +276,75 @@ El siguiente diagrama representa un diseño de arquitectura moderna para el ATS 
 
 ![Nivel 1 - Diagrama de Contexto]![alt text](Images/DiagramaC4Nivel1.png)
 
+@startuml "ATS_Context"
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+LAYOUT_TOP_DOWN()
+LAYOUT_WITH_LEGEND()
+
+' Actores externos
+Person(recruiter, "Reclutador", "Usuario interno que publica vacantes y gestiona candidatos")
+Person(interviewer, "Entrevistador", "Evalúa candidatos en entrevistas")
+Person(candidate, "Candidato", "Persona externa que aplica a vacantes")
+
+System_Boundary(c1, "Applicant Tracking System (ATS)") {
+    Container(web_app_admin, "Módulo Admin", "Web App", "Panel para reclutadores y entrevistadores")
+    Container(web_app_candidate, "Portal Web Candidatos", "Web App", "Portal donde los candidatos aplican y consultan")
+}
+
+System_Ext(email_service, "Servicio de Notificaciones", "Envía correos automáticos")
+System_Ext(job_board, "Portal de Empleo (Ej. LinkedIn, Indeed)", "Sistema externo de publicación de vacantes")
+
+Rel(recruiter, web_app_admin, "Usa", "HTTPS")
+Rel(interviewer, web_app_admin, "Accede para evaluar entrevistas", "HTTPS")
+Rel(candidate, web_app_candidate, "Postula a vacantes", "HTTPS")
+
+Rel(web_app_admin, email_service, "Envía notificaciones a candidatos y usuarios", "SMTP/REST")
+Rel(web_app_candidate, email_service, "Envía confirmaciones y alertas", "SMTP/REST")
+Rel(web_app_admin, job_board, "Publica vacantes automáticamente", "REST")
+
+@enduml
+
+
 ---
 
 ## ✅ 9. Modelo C4 - Nivel 2: Diagrama de Contenedores
 
 ![Nivel 2 - Diagrama de Contenedores]![alt text](Images/DiagramaC4Nivel2.png)
+
+@startuml "ATS_Contenedores"
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+LAYOUT_TOP_DOWN()
+LAYOUT_WITH_LEGEND()
+
+Person(recruiter, "Reclutador", "Usuario interno que gestiona vacantes y entrevistas")
+Person(interviewer, "Entrevistador", "Evalúa candidatos y registra observaciones")
+Person(candidate, "Candidato", "Postula a vacantes y consulta el estado")
+
+System_Boundary(c1, "Applicant Tracking System (ATS)") {
+    
+    Container(web_admin, "Web Admin", "React / Angular", "Interfaz para reclutadores y entrevistadores")
+    Container(web_candidate, "Web Candidatos", "Next.js / Vue", "Portal donde los candidatos aplican")
+    Container(api_rest, "API REST ATS", "ASP.NET Core / Node.js", "Orquesta la lógica de negocio del sistema")
+    ContainerDb(db, "Base de Datos ATS", "PostgreSQL / SQL Server", "Almacena vacantes, usuarios, postulaciones, entrevistas")
+    Container(mail_service, "Servicio de Notificaciones", "SendGrid / SMTP", "Envía correos automáticos")
+    Container(job_integration, "Integración con Portales", "REST Client", "Publica vacantes en plataformas externas")
+}
+
+Rel(recruiter, web_admin, "Gestiona procesos de selección", "HTTPS")
+Rel(interviewer, web_admin, "Evalúa entrevistas", "HTTPS")
+Rel(candidate, web_candidate, "Postula a vacantes", "HTTPS")
+
+Rel(web_admin, api_rest, "Consume")
+Rel(web_candidate, api_rest, "Consume")
+
+Rel(api_rest, db, "Lee/Escribe")
+Rel(api_rest, mail_service, "Envía notificaciones", "SMTP/REST")
+Rel(api_rest, job_integration, "Publica vacantes", "REST")
+
+@enduml
+
 
 ---
 
@@ -293,10 +352,75 @@ El siguiente diagrama representa un diseño de arquitectura moderna para el ATS 
 
 ![Nivel 3 - Diagrama de Componentes]![alt text](Images/DiagramaC4Nivel3API_REST_ATS.png)
 
+@startuml "ATS_Componentes_API_REST"
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+LAYOUT_TOP_DOWN()
+LAYOUT_WITH_LEGEND()
+
+Person(recruiter, "Reclutador")
+Person(candidate, "Candidato")
+Person(interviewer, "Entrevistador")
+
+Container(api, "API REST ATS", "ASP.NET Core", "Contenedor principal con lógica de negocio")
+
+System_Boundary(api_boundary, "Componentes del Contenedor: API REST ATS") {
+
+  Component(VacanteController, "VacanteController", "REST Controller", "Gestiona endpoints para vacantes")
+  Component(PostulacionController, "PostulacionController", "REST Controller", "Gestiona postulaciones")
+  Component(EntrevistaController, "EntrevistaController", "REST Controller", "Gestiona entrevistas")
+
+  Component(VacanteService, "VacanteService", "Service", "Contiene lógica de negocio de vacantes")
+  Component(PostulacionService, "PostulacionService", "Service", "Lógica para procesar postulaciones")
+  Component(EntrevistaService, "EntrevistaService", "Service", "Lógica para gestionar entrevistas")
+
+  Component(RepositorioVacante, "RepositorioVacante", "Repository", "Acceso a datos de vacantes")
+  Component(RepositorioPostulacion, "RepositorioPostulacion", "Repository", "Acceso a postulaciones")
+  Component(RepositorioEntrevista, "RepositorioEntrevista", "Repository", "Acceso a entrevistas")
+}
+
+Rel(recruiter, VacanteController, "Usa", "HTTP")
+Rel(candidate, PostulacionController, "Envía solicitud", "HTTP")
+Rel(interviewer, EntrevistaController, "Accede", "HTTP")
+
+Rel(VacanteController, VacanteService, "Usa")
+Rel(PostulacionController, PostulacionService, "Usa")
+Rel(EntrevistaController, EntrevistaService, "Usa")
+
+Rel(VacanteService, RepositorioVacante, "Lee/Escribe")
+Rel(PostulacionService, RepositorioPostulacion, "Lee/Escribe")
+Rel(EntrevistaService, RepositorioEntrevista, "Lee/Escribe")
+
+@enduml
+
+
 ---
 
 ## ✅ 11. Modelo C4 - Nivel 4: Diagrama Interno VacanteService
 
 ![Nivel 4 - Diagrama VacanteService]![alt text](Images/DiagramaC4Nivel4_VacanteService.png)
+
+@startuml "ATS_VacanteService_Detalle"
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+LAYOUT_TOP_DOWN()
+LAYOUT_WITH_LEGEND()
+
+Container_Boundary(c1, "VacanteService [Service]") {
+
+  Component(VacanteService, "VacanteService", "Service", "Gestiona lógica de publicación y validación de vacantes")
+  Component(ValidadorVacante, "ValidadorVacante", "Helper", "Aplica reglas de negocio sobre los campos de vacantes")
+  Component(PublicadorVacante, "PublicadorVacante", "Helper", "Publica vacantes en portales externos (Ej. LinkedIn)")
+  Component(RepositorioVacante, "RepositorioVacante", "Repository", "Interfaz para acceder a la base de datos")
+  Component(Vacante, "Vacante", "Entidad", "Modelo de dominio que representa una vacante")
+}
+
+Rel(VacanteService, ValidadorVacante, "Usa para validar campos")
+Rel(VacanteService, PublicadorVacante, "Usa para publicar")
+Rel(VacanteService, RepositorioVacante, "Lee/Escribe datos")
+Rel(VacanteService, Vacante, "Orquesta creación/modificación")
+
+@enduml
+
 
 ---
