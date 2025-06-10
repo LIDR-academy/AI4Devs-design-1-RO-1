@@ -128,18 +128,30 @@ Sistema todo-en-uno que automatiza, organiza y optimiza el proceso de reclutamie
 **Descripción**:  
 Permite al reclutador crear y publicar una nueva oferta laboral en el sistema y en portales externos.
 
-**Flujo principal**:
+**Mejoras y Automatizaciones:**
+- Redacción asistida por IA para la descripción y requisitos de la vacante.
+- Detección automática de sesgos en el texto de la vacante.
+- Publicación multicanal automatizada (varios portales y redes sociales con un solo clic).
+- Colaboración en tiempo real: managers y reclutadores pueden comentar y aprobar la vacante antes de publicarla.
+- Historial y auditoría de todas las acciones sobre la vacante.
+
+**Flujo principal ajustado:**
 1. El reclutador accede al sistema.
-2. Crea una nueva vacante especificando título, descripción, requisitos y tipo de contrato.
-3. Selecciona los canales donde se publicará (portal interno, LinkedIn, etc.).
-4. Confirma y publica la vacante.
+2. Crea una nueva vacante, con sugerencias automáticas de IA para el texto y requisitos.
+3. El sistema revisa y sugiere mejoras para evitar sesgos.
+4. Reclutadores y managers pueden comentar y aprobar la vacante en tiempo real.
+5. Selecciona los canales de publicación (portal interno, LinkedIn, etc.).
+6. Publica la vacante en todos los canales seleccionados automáticamente.
+7. El sistema registra todas las acciones y notifica a los interesados.
 
 ```mermaid
 graph TD;
     A[Reclutador] --> B[Crear Vacante]
     A --> C[Definir Requisitos del Cargo]
-    A --> D[Seleccionar Canales de Publicación]
+    A --> D[Colaborar y Aprobar Vacante]
     A --> E[Publicar Vacante]
+    E --> F[Publicación Multicanal]
+    E --> G[Historial y Auditoría]
 ```
 
 ---
@@ -149,20 +161,33 @@ graph TD;
 **Descripción**:  
 Permite al reclutador visualizar, filtrar, clasificar y gestionar las postulaciones recibidas.
 
-**Flujo principal**:
+**Mejoras y Automatizaciones:**
+- Screening automático de CVs y puntuación de candidatos por IA.
+- Detección de duplicados y perfiles sospechosos.
+- Colaboración y feedback en tiempo real (comentarios, puntuaciones, votaciones).
+- Automatización de comunicaciones (respuestas automáticas a candidatos).
+- Panel visual y filtros avanzados.
+- Historial de interacciones y auditoría.
+
+**Flujo principal ajustado:**
 1. El reclutador consulta las postulaciones activas.
-2. Filtra candidatos por criterios (experiencia, formación, skills).
-3. Revisa CVs y detalles del candidato.
-4. Clasifica: preselecciona, descarta o deja comentarios.
-5. Comparte información con el equipo de entrevistas si es necesario.
+2. La IA filtra y puntúa automáticamente los candidatos.
+3. El sistema detecta duplicados y posibles fraudes.
+4. El equipo puede comentar, puntuar y votar sobre cada candidato en tiempo real.
+5. El sistema envía automáticamente notificaciones a los candidatos según su estado.
+6. El reclutador puede compartir candidatos con managers o entrevistadores.
+7. Todo el historial de acciones y comentarios queda registrado.
 
 ```mermaid
 graph TD;
     A[Reclutador] --> B[Ver Postulaciones]
-    A --> C[Filtrar Candidatos]
-    A --> D[Revisar Currículum]
-    A --> E[Clasificar Candidato]
-    A --> F[Agregar Comentarios o Tareas]
+    B --> C[Screening Automático IA]
+    B --> D[Detección de Duplicados]
+    B --> E[Panel Visual y Filtros]
+    A --> F[Colaborar y Comentar]
+    F --> G[Puntuar y Votar]
+    A --> H[Automatizar Comunicaciones]
+    A --> I[Historial y Auditoría]
 ```
 
 ---
@@ -172,21 +197,34 @@ graph TD;
 **Descripción**:  
 Facilita la coordinación y registro de entrevistas entre candidatos y entrevistadores.
 
-**Flujo principal**:
+**Mejoras y Automatizaciones:**
+- Propuestas automáticas de horarios según disponibilidad.
+- Integración con calendarios externos (Google, Outlook, etc.).
+- Notificaciones y recordatorios automáticos.
+- Videoentrevistas integradas y grabación opcional.
+- Evaluación asistida por IA (sugerencias de preguntas, análisis de sentimiento en feedback).
+- Colaboración en tiempo real entre entrevistadores.
+- Feedback automático al candidato tras la entrevista.
+
+**Flujo principal ajustado:**
 1. El reclutador selecciona al candidato.
-2. Define fecha, hora y modo de entrevista.
-3. El sistema notifica a los participantes (entrevistador y candidato).
-4. Ambas partes confirman disponibilidad.
-5. El entrevistador registra su evaluación tras la entrevista.
+2. El sistema sugiere automáticamente fechas y horas disponibles para todos los participantes.
+3. Se integra con los calendarios de los entrevistadores y candidatos.
+4. El sistema envía invitaciones y recordatorios automáticos.
+5. La entrevista puede ser presencial o virtual (con grabación y análisis opcional).
+6. Los entrevistadores dejan comentarios y evaluaciones colaborativas.
+7. El sistema puede enviar feedback automático al candidato y registrar todo el proceso.
 
 ```mermaid
 graph TD;
     A[Reclutador] --> B[Seleccionar Candidato]
-    A --> C[Agendar Entrevista]
-    A --> D[Notificar a Participantes]
-    E[Candidato] --> F[Confirmar Entrevista]
-    G[Entrevistador] --> H[Confirmar Entrevista]
-    G --> I[Registrar Evaluación]
+    B --> C[Propuesta Automática de Horarios]
+    C --> D[Integración con Calendarios]
+    D --> E[Notificaciones y Recordatorios]
+    E --> F[Entrevista Presencial/Virtual]
+    F --> G[Evaluación Colaborativa]
+    G --> H[Feedback Automático al Candidato]
+    H --> I[Historial y Auditoría]
 ```
 
 ## ✅ 6. Diagrama Entidad Relación (ER)
