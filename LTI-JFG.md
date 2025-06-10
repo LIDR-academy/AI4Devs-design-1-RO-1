@@ -273,15 +273,42 @@ erDiagram
         String Email
     }
 
+    COMENTARIO {
+        UUID IdComentario PK
+        UUID IdUsuario FK
+        String TipoEntidad
+        UUID IdEntidad FK
+        Text Texto
+        DateTime FechaComentario
+    }
+
+    LOG {
+        UUID IdLog PK
+        UUID IdUsuario FK
+        String Accion
+        String EntidadAfectada
+        UUID IdEntidad FK
+        DateTime FechaAccion
+        Text Detalle
+    }
+
     VACANTE ||--o{ POSTULACION : tiene
     CANDIDATO ||--o{ POSTULACION : realiza
     POSTULACION ||--o{ ENTREVISTA : genera
     USUARIO ||--o{ ENTREVISTA : conduce
+    USUARIO ||--o{ COMENTARIO : escribe
+    USUARIO ||--o{ LOG : genera
+    COMENTARIO ||--o| VACANTE : sobre
+    COMENTARIO ||--o| POSTULACION : sobre
+    COMENTARIO ||--o| ENTREVISTA : sobre
+    LOG ||--o| VACANTE : sobre
+    LOG ||--o| POSTULACION : sobre
+    LOG ||--o| ENTREVISTA : sobre
 ```
 
 ---
 
-## ✅ 7 Arquitectura de Alto Nivel del ATS (Microservicios + JWT)
+## ✅ 7. Arquitectura de Alto Nivel del ATS (Microservicios + JWT)
 
 El siguiente diagrama representa un diseño de arquitectura moderna para el ATS utilizando una estrategia de microservicios desplegados detrás de un API Gateway, autenticación con JWT y servicios desacoplados para diferentes dominios del proceso de selección.
 
@@ -299,23 +326,84 @@ El siguiente diagrama representa un diseño de arquitectura moderna para el ATS 
   - **Application Tracking Service**
   - **Interview Scheduling Service**
   - **Auth Service**
+- **Nuevos microservicios para soportar funcionalidades avanzadas:**
+  - **IA/Automation Service:** Provee redacción asistida, screening automático, matching inteligente, análisis de sentimiento y detección de sesgos mediante IA.
+  - **Collaboration/Notification Service:** Gestiona comentarios, chat, votaciones y notificaciones en tiempo real entre reclutadores, managers y entrevistadores.
+  - **Workflow Orchestrator:** Orquesta automatizaciones, recordatorios, triggers y tareas programadas en los procesos de selección.
+  - **Integrations Service:** Facilita la conexión con herramientas externas (Slack, Teams, calendarios, portales de empleo, etc.).
+  - **Audit/Logs Service:** Registra todas las acciones y cambios en el sistema para trazabilidad y cumplimiento normativo.
 - Cada microservicio expone una API propia y persiste datos en su propia base de datos (RDS), cumpliendo el principio de base de datos por servicio.
 
-### 🔗 Diagrama:
+### 🔗 Diagrama actualizado:
 
-![Diseño ATS - Alto Nivel]![alt text](Images/DisenoATSAltoNivel.png)
+```mermaid
+graph TD;
+    subgraph Frontend
+        A[Web App (Admin/Candidato)]
+    end
+    subgraph Infraestructura
+        B[CloudFront (Assets)]
+        C[ELB]
+        D[API Gateway]
+    end
+    subgraph Microservicios
+        E[Auth Service]
+        F[Job Postings Service]
+        G[Candidate Profiles Service]
+        H[Application Tracking Service]
+        I[Interview Scheduling Service]
+        J[IA/Automation Service]
+        K[Collaboration/Notification Service]
+        L[Workflow Orchestrator]
+        M[Integrations Service]
+        N[Audit/Logs Service]
+    end
+    subgraph Externos
+        O[Correo/Notificaciones]
+        P[Portales de Empleo]
+        Q[Calendarios]
+        R[APIs de IA Externas]
+        S[Herramientas de Colaboración]
+    end
 
-🔗 [Ver diagrama en Eraser](https://app.eraser.io/workspace/yJvVKoEjtaN8fxjuiy7X?origin=share&elements=LFUPD_atxkRV-qmc65i2Sg)
+    A --> B
+    A --> C
+    B --> C
+    C --> D
+    D --> E
+    D --> F
+    D --> G
+    D --> H
+    D --> I
+    D --> J
+    D --> K
+    D --> L
+    D --> M
+    D --> N
 
+    F -- Publica --> P
+    M -- Integra --> Q
+    M -- Integra --> S
+    K -- Notifica --> O
+    J -- Consume --> R
+    N -- Registra --> O
+    L -- Orquesta --> F
+    L -- Orquesta --> G
+    L -- Orquesta --> H
+    L -- Orquesta --> I
+    K -- Colabora --> F
+    K -- Colabora --> H
+    K -- Colabora --> I
+```
+
+Esta arquitectura permite escalar y evolucionar el sistema fácilmente, soportando funcionalidades avanzadas de IA, automatización, colaboración y cumplimiento normativo, diferenciando el ATS frente a la competencia.
 
 ---
 
 ## ✅ 8. Modelo C4 - Nivel 1: Diagrama de Contexto
 
-![Nivel 1 - Diagrama de Contexto]![alt text](Images/DiagramaC4Nivel1.png)
-
-@startuml "ATS_Context"
-!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+@startuml "ATS_Context_Actualizado"
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
 
 LAYOUT_TOP_DOWN()
 LAYOUT_WITH_LEGEND()
@@ -325,32 +413,49 @@ Person(recruiter, "Reclutador", "Usuario interno que publica vacantes y gestiona
 Person(interviewer, "Entrevistador", "Evalúa candidatos en entrevistas")
 Person(candidate, "Candidato", "Persona externa que aplica a vacantes")
 
-System_Boundary(c1, "Applicant Tracking System (ATS)") {
-    Container(web_app_admin, "Módulo Admin", "Web App", "Panel para reclutadores y entrevistadores")
-    Container(web_app_candidate, "Portal Web Candidatos", "Web App", "Portal donde los candidatos aplican y consultan")
+System_Boundary(ats, "Applicant Tracking System (ATS)") {
+    System(web_app_admin, "Módulo Admin", "Web App", "Panel para reclutadores y entrevistadores")
+    System(web_app_candidate, "Portal Web Candidatos", "Web App", "Portal donde los candidatos aplican y consultan")
+    System(ia_service, "IA/Automation Service", "Microservicio IA", "Matching, screening, redacción asistida, análisis de sentimiento")
+    System(collab_service, "Collaboration/Notification Service", "Microservicio Colaboración", "Comentarios, chat, notificaciones en tiempo real")
+    System(workflow_service, "Workflow Orchestrator", "Microservicio Workflows", "Automatización de procesos y recordatorios")
+    System(integration_service, "Integrations Service", "Microservicio Integraciones", "Conexión con portales, calendarios, herramientas externas")
+    System(audit_service, "Audit/Logs Service", "Microservicio Auditoría", "Registro de acciones y cumplimiento")
 }
 
 System_Ext(email_service, "Servicio de Notificaciones", "Envía correos automáticos")
 System_Ext(job_board, "Portal de Empleo (Ej. LinkedIn, Indeed)", "Sistema externo de publicación de vacantes")
+System_Ext(calendar, "Calendarios Externos", "Google/Outlook Calendar")
+System_Ext(ai_api, "APIs de IA Externas", "OpenAI, Azure AI, etc.")
+System_Ext(collab_tool, "Herramientas de Colaboración", "Slack, Teams, etc.")
 
 Rel(recruiter, web_app_admin, "Usa", "HTTPS")
 Rel(interviewer, web_app_admin, "Accede para evaluar entrevistas", "HTTPS")
 Rel(candidate, web_app_candidate, "Postula a vacantes", "HTTPS")
 
-Rel(web_app_admin, email_service, "Envía notificaciones a candidatos y usuarios", "SMTP/REST")
-Rel(web_app_candidate, email_service, "Envía confirmaciones y alertas", "SMTP/REST")
-Rel(web_app_admin, job_board, "Publica vacantes automáticamente", "REST")
+Rel(web_app_admin, ia_service, "Solicita IA para redacción, screening, matching")
+Rel(web_app_admin, collab_service, "Colabora y recibe notificaciones")
+Rel(web_app_admin, workflow_service, "Automatiza procesos y recordatorios")
+Rel(web_app_admin, integration_service, "Integra con portales/calendarios")
+Rel(web_app_admin, audit_service, "Registra acciones")
+Rel(web_app_candidate, ia_service, "Screening y feedback IA")
+Rel(web_app_candidate, collab_service, "Notificaciones y chat")
+Rel(web_app_candidate, workflow_service, "Recordatorios y automatización")
+Rel(web_app_candidate, audit_service, "Registra acciones")
+
+Rel(ia_service, ai_api, "Consume APIs de IA externas")
+Rel(collab_service, collab_tool, "Integra con herramientas de colaboración")
+Rel(integration_service, job_board, "Publica vacantes")
+Rel(integration_service, calendar, "Sincroniza entrevistas")
+Rel(audit_service, email_service, "Envía alertas/auditoría")
 
 @enduml
-
 
 ---
 
 ## ✅ 9. Modelo C4 - Nivel 2: Diagrama de Contenedores
 
-![Nivel 2 - Diagrama de Contenedores]![alt text](Images/DiagramaC4Nivel2.png)
-
-@startuml "ATS_Contenedores"
+@startuml "ATS_Contenedores_Actualizado"
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
 LAYOUT_TOP_DOWN()
@@ -360,14 +465,18 @@ Person(recruiter, "Reclutador", "Usuario interno que gestiona vacantes y entrevi
 Person(interviewer, "Entrevistador", "Evalúa candidatos y registra observaciones")
 Person(candidate, "Candidato", "Postula a vacantes y consulta el estado")
 
-System_Boundary(c1, "Applicant Tracking System (ATS)") {
-    
+System_Boundary(ats, "Applicant Tracking System (ATS)") {
     Container(web_admin, "Web Admin", "React / Angular", "Interfaz para reclutadores y entrevistadores")
     Container(web_candidate, "Web Candidatos", "Next.js / Vue", "Portal donde los candidatos aplican")
     Container(api_rest, "API REST ATS", "ASP.NET Core / Node.js", "Orquesta la lógica de negocio del sistema")
     ContainerDb(db, "Base de Datos ATS", "PostgreSQL / SQL Server", "Almacena vacantes, usuarios, postulaciones, entrevistas")
     Container(mail_service, "Servicio de Notificaciones", "SendGrid / SMTP", "Envía correos automáticos")
     Container(job_integration, "Integración con Portales", "REST Client", "Publica vacantes en plataformas externas")
+    Container(ia_service, "IA/Automation Service", "Python/Node.js", "Matching, screening, redacción asistida, análisis de sentimiento")
+    Container(collab_service, "Collaboration/Notification Service", "Node.js/Socket.io", "Comentarios, chat, notificaciones en tiempo real")
+    Container(workflow_service, "Workflow Orchestrator", "Node.js/Python", "Automatización de procesos y recordatorios")
+    Container(integration_service, "Integrations Service", "Node.js", "Conexión con portales, calendarios, herramientas externas")
+    Container(audit_service, "Audit/Logs Service", "Node.js/Python", "Registro de acciones y cumplimiento")
 }
 
 Rel(recruiter, web_admin, "Gestiona procesos de selección", "HTTPS")
@@ -380,17 +489,27 @@ Rel(web_candidate, api_rest, "Consume")
 Rel(api_rest, db, "Lee/Escribe")
 Rel(api_rest, mail_service, "Envía notificaciones", "SMTP/REST")
 Rel(api_rest, job_integration, "Publica vacantes", "REST")
+Rel(api_rest, ia_service, "Solicita IA para screening, matching, redacción")
+Rel(api_rest, collab_service, "Colaboración y notificaciones")
+Rel(api_rest, workflow_service, "Automatización de procesos")
+Rel(api_rest, integration_service, "Integra con portales/calendarios")
+Rel(api_rest, audit_service, "Registra acciones y auditoría")
+
+Rel(ia_service, job_integration, "Sugiere portales para publicación")
+Rel(ia_service, api_rest, "Devuelve resultados IA")
+Rel(collab_service, api_rest, "Recibe eventos y envía notificaciones")
+Rel(workflow_service, api_rest, "Orquesta tareas y recordatorios")
+Rel(integration_service, job_integration, "Publica vacantes")
+Rel(integration_service, mail_service, "Envía notificaciones externas")
+Rel(audit_service, db, "Almacena logs y auditoría")
 
 @enduml
-
 
 ---
 
 ## ✅ 10. Modelo C4 - Nivel 3: Diagrama de Componentes (API REST ATS)
 
-![Nivel 3 - Diagrama de Componentes]![alt text](Images/DiagramaC4Nivel3API_REST_ATS.png)
-
-@startuml "ATS_Componentes_API_REST"
+@startuml "ATS_Componentes_API_REST_Actualizado"
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
 
 LAYOUT_TOP_DOWN()
@@ -403,14 +522,19 @@ Person(interviewer, "Entrevistador")
 Container(api, "API REST ATS", "ASP.NET Core", "Contenedor principal con lógica de negocio")
 
 System_Boundary(api_boundary, "Componentes del Contenedor: API REST ATS") {
-
   Component(VacanteController, "VacanteController", "REST Controller", "Gestiona endpoints para vacantes")
   Component(PostulacionController, "PostulacionController", "REST Controller", "Gestiona postulaciones")
   Component(EntrevistaController, "EntrevistaController", "REST Controller", "Gestiona entrevistas")
+  Component(UsuarioController, "UsuarioController", "REST Controller", "Gestiona usuarios y autenticación")
 
   Component(VacanteService, "VacanteService", "Service", "Contiene lógica de negocio de vacantes")
   Component(PostulacionService, "PostulacionService", "Service", "Lógica para procesar postulaciones")
   Component(EntrevistaService, "EntrevistaService", "Service", "Lógica para gestionar entrevistas")
+  Component(IAClient, "IA/Automation Client", "Client", "Consume IA/Automation Service para screening, matching, redacción")
+  Component(CollabClient, "Collaboration Client", "Client", "Consume Collaboration/Notification Service")
+  Component(WorkflowClient, "Workflow Client", "Client", "Consume Workflow Orchestrator")
+  Component(IntegrationClient, "Integrations Client", "Client", "Consume Integrations Service")
+  Component(AuditClient, "Audit Client", "Client", "Registra acciones en Audit/Logs Service")
 
   Component(RepositorioVacante, "RepositorioVacante", "Repository", "Acceso a datos de vacantes")
   Component(RepositorioPostulacion, "RepositorioPostulacion", "Repository", "Acceso a postulaciones")
@@ -424,6 +548,17 @@ Rel(interviewer, EntrevistaController, "Accede", "HTTP")
 Rel(VacanteController, VacanteService, "Usa")
 Rel(PostulacionController, PostulacionService, "Usa")
 Rel(EntrevistaController, EntrevistaService, "Usa")
+Rel(UsuarioController, AuditClient, "Registra acciones")
+
+Rel(VacanteService, IAClient, "Solicita screening, matching, redacción IA")
+Rel(PostulacionService, IAClient, "Solicita screening IA")
+Rel(EntrevistaService, CollabClient, "Notifica y colabora en entrevistas")
+Rel(VacanteService, WorkflowClient, "Automatiza procesos de vacantes")
+Rel(PostulacionService, WorkflowClient, "Automatiza procesos de postulaciones")
+Rel(EntrevistaService, WorkflowClient, "Automatiza procesos de entrevistas")
+Rel(VacanteService, IntegrationClient, "Publica en portales externos")
+Rel(PostulacionService, AuditClient, "Registra acciones")
+Rel(EntrevistaService, AuditClient, "Registra acciones")
 
 Rel(VacanteService, RepositorioVacante, "Lee/Escribe")
 Rel(PostulacionService, RepositorioPostulacion, "Lee/Escribe")
@@ -431,34 +566,35 @@ Rel(EntrevistaService, RepositorioEntrevista, "Lee/Escribe")
 
 @enduml
 
-
 ---
 
 ## ✅ 11. Modelo C4 - Nivel 4: Diagrama Interno VacanteService
 
-![Nivel 4 - Diagrama VacanteService]![alt text](Images/DiagramaC4Nivel4_VacanteService.png)
-
-@startuml "ATS_VacanteService_Detalle"
+@startuml "ATS_VacanteService_Detalle_Actualizado"
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
 
 LAYOUT_TOP_DOWN()
 LAYOUT_WITH_LEGEND()
 
 Container_Boundary(c1, "VacanteService [Service]") {
-
   Component(VacanteService, "VacanteService", "Service", "Gestiona lógica de publicación y validación de vacantes")
   Component(ValidadorVacante, "ValidadorVacante", "Helper", "Aplica reglas de negocio sobre los campos de vacantes")
   Component(PublicadorVacante, "PublicadorVacante", "Helper", "Publica vacantes en portales externos (Ej. LinkedIn)")
+  Component(IAClient, "IA/Automation Client", "Client", "Solicita redacción asistida, matching y screening IA")
+  Component(WorkflowClient, "Workflow Client", "Client", "Automatiza procesos y recordatorios")
+  Component(AuditClient, "Audit Client", "Client", "Registra acciones en Audit/Logs Service")
   Component(RepositorioVacante, "RepositorioVacante", "Repository", "Interfaz para acceder a la base de datos")
   Component(Vacante, "Vacante", "Entidad", "Modelo de dominio que representa una vacante")
 }
 
 Rel(VacanteService, ValidadorVacante, "Usa para validar campos")
 Rel(VacanteService, PublicadorVacante, "Usa para publicar")
+Rel(VacanteService, IAClient, "Solicita IA para redacción, screening, matching")
+Rel(VacanteService, WorkflowClient, "Automatiza procesos y recordatorios")
+Rel(VacanteService, AuditClient, "Registra acciones y auditoría")
 Rel(VacanteService, RepositorioVacante, "Lee/Escribe datos")
 Rel(VacanteService, Vacante, "Orquesta creación/modificación")
 
 @enduml
-
 
 ---
