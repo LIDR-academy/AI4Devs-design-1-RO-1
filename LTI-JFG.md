@@ -135,13 +135,12 @@ Permite al reclutador crear y publicar una nueva oferta laboral en el sistema y 
 3. Selecciona los canales donde se publicará (portal interno, LinkedIn, etc.).
 4. Confirma y publica la vacante.
 
-```mermaid
-usecaseDiagram
-actor Reclutador
-Reclutador --> (Crear Vacante)
-Reclutador --> (Definir Requisitos del Cargo)
-Reclutador --> (Seleccionar Canales de Publicación)
-Reclutador --> (Publicar Vacante)
+```mermaid:
+flowchart TD
+    A[Reclutador] --> B[Crear Vacante]
+    A --> C[Definir Requisitos del Cargo]
+    A --> D[Seleccionar Canales de Publicación]
+    A --> E[Publicar Vacante]
 ```
 
 ---
