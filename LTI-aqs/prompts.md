@@ -261,41 +261,41 @@ Perfecto, con tus indicaciones claras, pasamos a la Fase 2: Casos de Uso, centra
 
 ## 📊 Diagrama de Casos de Uso UML
 Este es un esquema textual del diagrama. Lo representaré gráficamente si lo deseas luego (SVG o imagen).
->
->            +-----------------+
->            |   Reclutador    |
->            +-----------------+
->                   |
->    +---------------------------------------+
->    |  Crear vacante con IA                 |
->    +---------------------------------------+
->                   |
->    +---------------------------------------+
->    |  Ver y gestionar postulaciones        |
->    +---------------------------------------+
->                   |
->    +---------------------------------------+
->    |  Generar feedback y etiquetar         |
->    +---------------------------------------+
->
->            +---------------------+
->            |   Manager Contrato  |
->            +---------------------+
->                   |
->    +---------------------------------------+
->    |  Revisar y aprobar vacante            |
->    +---------------------------------------+
->                   |
->    +---------------------------------------+
->    |  Seleccionar candidato final          |
->    +---------------------------------------+
-> 
->            +---------------+
->            |     IA LTI    |
->            +---------------+
->                 |     |     |
->                Sugerencias, análisis, comparaciones
->
+```
+            +-----------------+
+            |   Reclutador    |
+            +-----------------+
+                   |
+    +---------------------------------------+
+    |  Crear vacante con IA                 |
+    +---------------------------------------+
+                   |
+    +---------------------------------------+
+    |  Ver y gestionar postulaciones        |
+    +---------------------------------------+
+                   |
+    +---------------------------------------+
+    |  Generar feedback y etiquetar         |
+    +---------------------------------------+
+
+            +---------------------+
+            |   Manager Contrato  |
+            +---------------------+
+                   |
+    +---------------------------------------+
+    |  Revisar y aprobar vacante            |
+    +---------------------------------------+
+                   |
+    +---------------------------------------+
+    |  Seleccionar candidato final          |
+    +---------------------------------------+
+ 
+            +---------------+
+            |     IA LTI    |
+            +---------------+
+                 |     |     |
+                Sugerencias, análisis, comparaciones
+```
 
 ## ✅ Próximo paso
 Pasamos a la Fase 3: Modelado de datos. Para ello, definiré:
@@ -304,3 +304,135 @@ Pasamos a la Fase 3: Modelado de datos. Para ello, definiré:
 * Relaciones (1:1, 1:N, N:M).
 
 ¿Quieres que partamos directamente con eso o deseas que genere primero el diagrama gráfico de los casos de uso?
+
+**Prompt 4:**
+Continua con el siguiente paso, los casos de eso están bien así por el momento
+
+**Respuesta 4:**
+Excelente. Continuamos entonces con la Fase 3: Modelado de Datos, diseñando el modelo que respalde funcionalmente los casos de uso del MVP y deje espacio para crecimiento futuro.
+
+# 🧩 Fase 3: Modelado de Datos
+## ✅ Entidades principales y atributos
+A continuación se muestra el modelo lógico con las entidades clave, sus atributos (nombre y tipo de dato sugerido) y sus relaciones.
+
+### 1. User
+Representa a los usuarios del sistema: reclutadores, managers, administradores.
+
+|Atributo  | Tipo                              |
+|----------|-----------------------------------|
+|id        | UUID                              |
+|name      | string                            |
+|email	   | string                            |
+|role	   | enum (recruiter, manager, admin)  |
+|createdAt | datetime                          |
+
+### 2. Job
+Vacante publicada o en borrador.
+
+|Atributo   | Tipo                              |
+|-----------|-----------------------------------|
+|id	        |   UUID                            |
+|title      |	string                          |
+|description|	text                            |
+|department	|   string                          |
+|location   |	string                          |
+|status     |	enum (draft, open, closed)      |
+|createdBy  |	FK → User                       |
+|createdAt  |	datetime                        |
+
+### 3. Application
+Postulación de un candidato a un trabajo.
+
+|Atributo   | Tipo                                                      |
+|-----------|-----------------------------------------------------------|
+|id	        |   UUID                                                    |
+|jobId      |	FK → Job                                                |
+|candidateId|	FK → Candidate                                          |
+|status	    |   enum (new, reviewed, rejected, interviewed, hired)      |
+|source	    |   string (e.g., "LinkedIn", "Referral")                   |
+|createdAt  |	datetime                                                |
+
+### 4. Candidate
+Persona postulante al sistema.
+
+|Atributo   | Tipo                                                      |
+|-----------|-----------------------------------------------------------|
+|id	        |   UUID                                                    |
+|fullName   |	string                                                  |
+|email	    |   string                                                  |
+|phone	    |   string                                                  |
+|resumeUrl	|   string                                                  |
+|createdAt	|   datetime                                                |
+
+### 5. Feedback
+Opiniones y evaluaciones de los usuarios sobre postulaciones.
+
+|Atributo       | Tipo                                                  |
+|---------------|-------------------------------------------------------|
+|id	            |   UUID                                                |
+|applicationId  |	FK → Application                                    |
+|reviewerId     |	FK → User                                           |
+|rating         |	integer (1-5)                                       |
+|comments       |	text                                                |
+|createdAt      |	datetime                                            |
+
+### 6. IAAnalysis
+Resultados de la IA sobre un CV o perfil.
+
+|Atributo       | Tipo                                                  |
+|---------------|-------------------------------------------------------|
+|applicationId  |	FK → Application                                    |
+|summary        |	text                                                |
+|strengths      |	json/text                                           |
+|weaknesses	    |   json/text                                           |
+|fitScore	    |   float (0-1)                                         |
+|generatedAt	|   datetime                                            |
+
+### 7. JobApproval
+Registro de aprobación de una vacante.
+
+|Atributo   | Tipo                                                      |
+|-----------|-----------------------------------------------------------|
+|id	        |   UUID                                                    |
+|jobId      |	FK → Job                                                |
+|approverId |	FK → User                                               |
+|approved   |	boolean                                                 |
+|reviewedAt |	datetime                                                |
+|comments   |	text                                                    |
+
+### 8. Tag
+Etiqueta colaborativa sobre una postulación.
+
+|Atributo   | Tipo                                                      |
+|-----------|-----------------------------------------------------------|
+|id	        |   UUID                                                    |
+|name       |	string                                                  |
+
+### 9. ApplicationTag
+Relación N:M entre Tags y Applications.
+
+|Atributo       | Tipo                                                  |
+|---------------|-------------------------------------------------------|
+|applicationId  |	FK → Application                                    |
+|tagId	        |   FK → Tag                                            |
+
+## ✅ Relaciones
+* User → Job: 1:N (un usuario puede crear muchos trabajos)
+* Job → Application: 1:N
+* Candidate → Application: 1:N
+* Application → Feedback: 1:N (múltiples evaluaciones por candidato)
+* Application → IAAnalysis: 1:1
+* Job → JobApproval: 1:N
+* Application ↔ Tag: N:M (por medio de ApplicationTag)
+
+## 🔁 Futuro (entidades no-MVP)
+Estas entidades podrían añadirse más adelante:
+* Interview: estructura de entrevistas y agenda.
+* HiringPipeline: etapas definidas por trabajo.
+* AutomationRule: sistema de automatización (si esto/entonces aquello).
+* Notification: sistema de alertas internas.
+
+# 📌 Próximo paso
+Vamos a construir ahora el diagrama Entidad-Relación (ER) en formato gráfico, que muestra las entidades, atributos clave y relaciones entre ellas.
+
+¿Quieres que lo genere como imagen directamente (ERD estilo clásico), o prefieres avanzar al diseño de alto nivel del sistema (Fase 4) y luego generar los diagramas juntos al final?
