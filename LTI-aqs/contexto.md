@@ -12,33 +12,33 @@ LTI ATS es una plataforma de seguimiento de candidatos diseñada desde cero para
 * Seguridad por defecto en almacenamiento de datos y logs de acceso.
 
 # 🔎 Análisis de la competencia
-**Plataforma    Fortalezas                              Debilidades**
----
-Greenhouse	    Flujo robusto, buena UX, integraciones	Costoso y complejo para pymes
-Lever	        CRM integrado, interfaz moderna	        Limitado en personalización IA
-BreezyHR	    Fácil de usar, ideal para pymes         Falta profundidad en análisis
-Workable	    Buenas plantillas y recomendaciones IA	Poco flexible en colaboración real
-Recruitee	    Colaboración simple, intuitivo	        Limitado en automatización avanzada
----
+|Plataforma	    |Fortalezas                                 |Debilidades                            |
+|---------------|-------------------------------------------|---------------------------------------|
+|Greenhouse     | Flujo robusto, buena UX, integraciones    | Costoso y complejo para pymes         |
+|Lever	        | CRM integrado, interfaz moderna           | Limitado en personalización IA        |
+|BreezyHR       | Fácil de usar, ideal para pymes           | Falta profundidad en análisis         |
+|Workable       | Buenas plantillas y recomendaciones IA    | Poco flexible en colaboración real    |
+|Recruitee      | Colaboración simple, intuitivo	        | Limitado en automatización avanzada   |
 
 # 📌 Propuesta de Valor (Pilares Diferenciales)
-1. IA de apoyo integral
+## 1. IA de apoyo integral
     Desde la criba de CVs hasta generación de resumen ejecutivo de candidatos y preguntas para entrevistas personalizadas.
 
-2. Flujo colaborativo simplificado
+## 2. Flujo colaborativo simplificado
     Reclutadores y managers pueden opinar, etiquetar, y decidir sin pasos engorrosos ni capacitaciones.
 
-3. Minimalismo poderoso
+## 3. Minimalismo poderoso
     Todo lo necesario para operar en menos de 5 clics. MVP centrado en agilidad, sin sobrecarga funcional.
 
 # 📊 Lean Canvas
-**Sección	        Contenido**
-Problema	        Reclutamiento lento, falta de colaboración, info dispersa, sin IA útil.
-Clientes	        Startups pequeñas y medianas (3–30 empleados), sin RRHH dedicado.
-Propuesta Valor	    ATS simple, ágil, colaborativo y con IA desde el inicio.
-Solución	        LTI ATS: colaboración + IA + automatización mínima viable.
-Métricas clave	    Tiempo hasta contratar, satisfacción usuarios, uso IA, adopción por rol.
-Ventaja competitiva	Stack moderno, sin legacy, optimizado para productividad real.
-Canales	            Ventas directas, referencias, incubadoras de startups.
-Costes	            Infraestructura cloud, licencias IA, soporte.
-Ingresos	        Suscripción mensual por empresa según número de vacantes activas.
+| Sección            |	Contenido                                                                       |
+|--------------------|----------------------------------------------------------------------------------|   
+| Problema           | Reclutamiento lento, falta de colaboración, info dispersa, sin IA útil.          |
+| Clientes           | Startups pequeñas y medianas (3–30 empleados), sin RRHH dedicado.                |
+| Propuesta          | Valor	ATS simple, ágil, colaborativo y con IA desde el inicio.                |
+| Solución           | LTI ATS: colaboración + IA + automatización mínima viable.                       |
+| Métricas clave     | Tiempo hasta contratar, satisfacción usuarios, uso IA, adopción por rol.         |
+| Ventaja competitiva| Stack moderno, sin legacy, optimizado para productividad real.                   |
+| Canales            | Ventas directas, referencias, incubadoras de startups.                           |
+| Costes             | Infraestructura cloud, licencias IA, soporte.                                    |
+| Ingresos           | Suscripción mensual por empresa según número de vacantes activas.                |

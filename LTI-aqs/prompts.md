@@ -143,34 +143,36 @@ Respeta principios clave del RGPD: consentimiento explícito, portabilidad, elim
 Seguridad por defecto en almacenamiento de datos y logs de acceso.
 
 ## 🔎 Análisis de la competencia
-Plataforma	Fortalezas	Debilidades
-Greenhouse	Flujo robusto, buena UX, integraciones	Costoso y complejo para pymes
-Lever	CRM integrado, interfaz moderna	Limitado en personalización IA
-BreezyHR	Fácil de usar, ideal para pymes	Falta profundidad en análisis
-Workable	Buenas plantillas y recomendaciones IA	Poco flexible en colaboración real
-Recruitee	Colaboración simple, intuitivo	Limitado en automatización avanzada
+|Plataforma	    |Fortalezas                                 |Debilidades                            |
+|---------------|-------------------------------------------|---------------------------------------|
+|Greenhouse     | Flujo robusto, buena UX, integraciones    | Costoso y complejo para pymes         |
+|Lever	        | CRM integrado, interfaz moderna           | Limitado en personalización IA        |
+|BreezyHR       | Fácil de usar, ideal para pymes           | Falta profundidad en análisis         |
+|Workable       | Buenas plantillas y recomendaciones IA    | Poco flexible en colaboración real    |
+|Recruitee      | Colaboración simple, intuitivo	        | Limitado en automatización avanzada   |
 
 ## 📌 Propuesta de Valor (Pilares Diferenciales)
-IA de apoyo integral
-Desde la criba de CVs hasta generación de resumen ejecutivo de candidatos y preguntas para entrevistas personalizadas.
+## 1. IA de apoyo integral
+    Desde la criba de CVs hasta generación de resumen ejecutivo de candidatos y preguntas para entrevistas personalizadas.
 
-Flujo colaborativo simplificado
-Reclutadores y managers pueden opinar, etiquetar, y decidir sin pasos engorrosos ni capacitaciones.
+## 2. Flujo colaborativo simplificado
+    Reclutadores y managers pueden opinar, etiquetar, y decidir sin pasos engorrosos ni capacitaciones.
 
-Minimalismo poderoso
-Todo lo necesario para operar en menos de 5 clics. MVP centrado en agilidad, sin sobrecarga funcional.
+## 3. Minimalismo poderoso
+    Todo lo necesario para operar en menos de 5 clics. MVP centrado en agilidad, sin sobrecarga funcional.
 
 ## 📊 Lean Canvas
-Sección	Contenido
-Problema	Reclutamiento lento, falta de colaboración, info dispersa, sin IA útil.
-Clientes	Startups pequeñas y medianas (3–30 empleados), sin RRHH dedicado.
-Propuesta Valor	ATS simple, ágil, colaborativo y con IA desde el inicio.
-Solución	LTI ATS: colaboración + IA + automatización mínima viable.
-Métricas clave	Tiempo hasta contratar, satisfacción usuarios, uso IA, adopción por rol.
-Ventaja competitiva	Stack moderno, sin legacy, optimizado para productividad real.
-Canales	Ventas directas, referencias, incubadoras de startups.
-Costes	Infraestructura cloud, licencias IA, soporte.
-Ingresos	Suscripción mensual por empresa según número de vacantes activas.
+| Sección            |	Contenido                                                                       |
+|--------------------|----------------------------------------------------------------------------------|   
+| Problema           | Reclutamiento lento, falta de colaboración, info dispersa, sin IA útil.          |
+| Clientes           | Startups pequeñas y medianas (3–30 empleados), sin RRHH dedicado.                |
+| Propuesta          | Valor	ATS simple, ágil, colaborativo y con IA desde el inicio.                |
+| Solución           | LTI ATS: colaboración + IA + automatización mínima viable.                       |
+| Métricas clave     | Tiempo hasta contratar, satisfacción usuarios, uso IA, adopción por rol.         |
+| Ventaja competitiva| Stack moderno, sin legacy, optimizado para productividad real.                   |
+| Canales            | Ventas directas, referencias, incubadoras de startups.                           |
+| Costes             | Infraestructura cloud, licencias IA, soporte.                                    |
+| Ingresos           | Suscripción mensual por empresa según número de vacantes activas.                |
 
 ## ✅ Próximo paso
 Fase 2: Casos de Uso
@@ -436,3 +438,15 @@ Estas entidades podrían añadirse más adelante:
 Vamos a construir ahora el diagrama Entidad-Relación (ER) en formato gráfico, que muestra las entidades, atributos clave y relaciones entre ellas.
 
 ¿Quieres que lo genere como imagen directamente (ERD estilo clásico), o prefieres avanzar al diseño de alto nivel del sistema (Fase 4) y luego generar los diagramas juntos al final?
+
+**Prompt 5**
+
+Genera la imagen directamente del diagrama ER, luego genera el diseño de alto nivel, para cumplir con el cuarto artefacto de la tarea
+
+**Respuesta 5**
+Procesando imagen
+Hay muchas personas creando imágenes en este momento, así que podría tardar un poco. Te avisaremos cuando tu imagen esté lista.
+
+**Nota a la respuesta 5**
+Generó una imagen del diagrama cortado. En un contexto normal, debería buscar generar el diagrama con otra herramienta, pero considerando que debería darle contexto a otra herramienta, dejaré la que generó Chat GPT para el ejercicio.
+
