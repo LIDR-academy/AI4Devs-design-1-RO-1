@@ -103,3 +103,84 @@ A continuación encontrarás una propuesta de Meta-prompts organizados por fases
     * ¿Háblame del perfil y número estimado de usuarios concurrentes en el MVP?
 
 Con estos Meta-prompts y preguntas iniciales, podrás alinear a tu equipo y a la IA sobre qué, cómo y por qué de cada fase, asegurando cobertura completa de todos los entregables. ¿Qué otros aspectos crees que deberíamos explorar antes de arrancar?
+
+**Prompt 2**: 
+
+Me parece una excelente propuesta para dar cumplimiento a esta tarea, así que responderé las preguntas iniciales para ir iniciando el plan.
+1. Los módulos must-have serían la creación de trabajos, recepción de postulaciones recibidas, revisión de aplicaciones y seleccionar candidato para contratar. En los modelos igualmente indicar de las otras partes, aunque no sean implementadas en la primera etapa.
+2. Considera los requerimientos legales que sean más generales, considerando la unión europea como referencia.
+3. El stack tecnológico preferido es typescript, tanto para frontend como para backend.
+4. Se usaran servicios de IA de terceros, OpenAI
+5. En una primera etapa no hay una integración especifica con un HRIS determinado, por lo que solo se deben disponer de API's de salida y generación de archivos excel para que puedan hacer el proceso de datos por medio de carga de datos que el propio HRIS establezca y con estas dos cubrimos un amplio espectro para integrar.
+6. No hay ninguna base de datos para migrar, ni de candidatos ni nada en este momento.
+7. Respecto a los tiempos, considerando que es una startup, se buscan los tiempos más cortos posibles, pero que aunque el producto sea simple, cubra el funcionamiento mínimo viable para operar.
+8. Considerar un equipo pequeño inicialmente, es decir de 1 a 3 personas.
+9. Establece los KPI que consideres pertinentes y que puedan ser medidos sin complejizar el proceso de implementación.
+10. Los usuarios serán pocos, no más de 5, y con el conocimiento principal en el negocio, considera que es un proyecto pequeño, pero ambicioso, por lo que espera ir creciendo con el tiempo.
+
+Con las preguntas aclaradas, demos inicio al plan para poder generar todo el contenido esperado.
+
+**Respuesta 2**
+
+Perfecto, con tus respuestas claras y el contexto definido, daremos inicio al Plan de Trabajo siguiendo las fases y entregables establecidos. A continuación te presento la Fase 1: Investigación y análisis, con su desarrollo inicial.
+
+# 🧩 Fase 1: Investigación y Análisis
+## 📌 Descripción del Producto: LTI ATS
+LTI ATS es una plataforma de seguimiento de candidatos diseñada desde cero para maximizar la eficiencia de los procesos de reclutamiento en startups y empresas en crecimiento. Su valor diferencial reside en su diseño ligero, colaborativo y con fuerte presencia de IA, enfocado en ayudar a equipos pequeños a tomar decisiones rápidas e informadas.
+
+🎯 Valor añadido
+✨ IA integrable desde el primer día: análisis automático de CVs, resúmenes de perfiles, preguntas sugeridas para entrevistas y más.
+
+🤝 Colaboración fluida: comentarios, feedback y decisiones en tiempo real entre RRHH y managers.
+
+⚡ Automatización accesible: reglas configurables para filtros, avisos, pasos del proceso, sin depender de IT.
+
+📤 Exportación lista para HRIS: integraciones flexibles con APIs o exportaciones en Excel.
+
+🛡️ Cumplimiento
+Respeta principios clave del RGPD: consentimiento explícito, portabilidad, eliminación de datos, y mínimo tratamiento.
+
+Seguridad por defecto en almacenamiento de datos y logs de acceso.
+
+## 🔎 Análisis de la competencia
+Plataforma	Fortalezas	Debilidades
+Greenhouse	Flujo robusto, buena UX, integraciones	Costoso y complejo para pymes
+Lever	CRM integrado, interfaz moderna	Limitado en personalización IA
+BreezyHR	Fácil de usar, ideal para pymes	Falta profundidad en análisis
+Workable	Buenas plantillas y recomendaciones IA	Poco flexible en colaboración real
+Recruitee	Colaboración simple, intuitivo	Limitado en automatización avanzada
+
+## 📌 Propuesta de Valor (Pilares Diferenciales)
+IA de apoyo integral
+Desde la criba de CVs hasta generación de resumen ejecutivo de candidatos y preguntas para entrevistas personalizadas.
+
+Flujo colaborativo simplificado
+Reclutadores y managers pueden opinar, etiquetar, y decidir sin pasos engorrosos ni capacitaciones.
+
+Minimalismo poderoso
+Todo lo necesario para operar en menos de 5 clics. MVP centrado en agilidad, sin sobrecarga funcional.
+
+## 📊 Lean Canvas
+Sección	Contenido
+Problema	Reclutamiento lento, falta de colaboración, info dispersa, sin IA útil.
+Clientes	Startups pequeñas y medianas (3–30 empleados), sin RRHH dedicado.
+Propuesta Valor	ATS simple, ágil, colaborativo y con IA desde el inicio.
+Solución	LTI ATS: colaboración + IA + automatización mínima viable.
+Métricas clave	Tiempo hasta contratar, satisfacción usuarios, uso IA, adopción por rol.
+Ventaja competitiva	Stack moderno, sin legacy, optimizado para productividad real.
+Canales	Ventas directas, referencias, incubadoras de startups.
+Costes	Infraestructura cloud, licencias IA, soporte.
+Ingresos	Suscripción mensual por empresa según número de vacantes activas.
+
+## ✅ Próximo paso
+Fase 2: Casos de Uso
+
+Antes de generarlos, por favor confirma:
+
+¿Quieres que el primer caso de uso sea el flujo completo desde creación de vacante → revisión → contratación?
+
+¿Debería incluir interacción con funcionalidades IA en alguno de los casos?
+
+¿Tienes alguna preferencia sobre el estilo de los diagramas UML (plantillas, símbolos o herramientas específicas)? Si no, usaré un formato estándar.
+
+¿Te parece bien avanzar con esto o prefieres revisar/modificar algo del análisis antes de seguir?
