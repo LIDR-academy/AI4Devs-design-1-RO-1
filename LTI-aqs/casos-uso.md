@@ -102,3 +102,5 @@ Este es un esquema textual del diagrama.
                  |     |     |
                 Sugerencias, análisis, comparaciones
 ```
+
+![Diagrama de Entidad Relación](img/diagrama-er.png)
