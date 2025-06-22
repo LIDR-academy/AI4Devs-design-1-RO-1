@@ -567,3 +567,10 @@ Se activa cuando un **Application** es recibido o actualizado, y puede ser consu
 Procedo ahora a generar el diagrama que representa la arquitectura interna de este módulo específico.
 
 ![Diagrama de C4 - Nivel 3](img/diagrama-c4-nivel3.png)
+
+**Prompt 8:** Usando Github Copilot en VSC
+
+En el directorio LTI-aqs, crea un archivo readme.md que sirva de indice a los archivos md que contienen las diferentes fases, el archivo prompts.md contiene todo el contenido de como se definieron las fases, y los otros archivos corresponden a una página de cada una de las fases. La idea de que el archivo readme sirva de indice y guia para mostrar el resultado de la tarea completada
+
+**Respuesta 8:**
+Generó completo el archivo LTI-aqs/readme.md que sirve de indice
