@@ -1,6 +1,6 @@
-# Prompt: Especificación inicial para el desarrollo de un ATS (Applicant Tracking System)
+# Especificación inicial para el desarrollo de un ATS (Applicant Tracking System)
 
-**Objetivo del prompt:** Proveer una especificación exhaustiva y lista para usarse como base en la primera fase de diseño y desarrollo de un ATS. El documento debe servir tanto a un equipo de desarrollo (backend, frontend, QA, DevOps) como a un generador de especificaciones automáticas (IA o herramienta de gestión de producto).
+Proveer una especificación exhaustiva y lista para usarse como base en la primera fase de diseño y desarrollo de un ATS. El documento debe servir tanto a un equipo de desarrollo (backend, frontend, QA, DevOps) como a un generador de especificaciones automáticas (IA o herramienta de gestión de producto).
 
 ---
 
